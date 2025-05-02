@@ -5,13 +5,13 @@ namespace backend.Model
 {
     public class ConversationModel
     {
-        [Key]
+        public int Id { get; set; }
         public int ConversationId { get; set; }
 
         public int FirstUserId { get; set; }
 
         public int SecondUserId { get; set; }
 
-        public List<MessageModel> Messages { get; set; } = new();
+        public virtual ICollection<MessageModel> Messages { get; set; }
     }
 }

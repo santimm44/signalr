@@ -38,10 +38,33 @@ namespace backend.service
             return conversation;
         }
 
-        public async Task<MessageModel> StoreMessage(string messageContent)
+        public async Task<MessageModel> StoreMessage(
+            string messageContent,
+            int userId,
+            string timeStamp,
+            int secondUser
+        )
         {
-            var messageToStore = new MessageModel() { Content = messageContent };
-            return;
+            ConversationModel findConversation = await GetOrCreateConversation(userId, secondUser);
+            DateTime messageTimeStamp = stringToDateTime(timeStamp);
+            int theConversationId = findConversation.ConversationId;
+
+            var messageToStore = new MessageModel
+            {
+                Content = messageContent,
+                SenderId = userId,
+                Timestamp = messageTimeStamp,
+                ConversationId = theConversationId,
+            };
+
+            _context.Messages.Add(messageToStore);
+            await _context.SaveChangesAsync();
+            return messageToStore;
+        }
+
+        private DateTime stringToDateTime(string timeStamp)
+        {
+            return DateTime.Parse(timeStamp);
         }
     }
 }

@@ -21,10 +21,20 @@ namespace backend.Controllers
             return Ok(conversation);
         }
 
-        [HttpPost("SaveMessage/{UserMessage}")]
-        public async Task<IActionResult> StoreMessage(string UserMessage)
+        [HttpPost("SaveMessage/{UserMessage}/{User}/{TimeStamp}/{SecondUser}")]
+        public async Task<IActionResult> StoreMessage(
+            string UserMessage,
+            int User,
+            string TimeStamp,
+            int SecondUser
+        )
         {
-            var storedMessage = await _chatService.StoreMessage(UserMessage);
+            var storedMessage = await _chatService.StoreMessage(
+                UserMessage,
+                User,
+                TimeStamp,
+                SecondUser
+            );
             return Ok(storedMessage);
         }
     }
