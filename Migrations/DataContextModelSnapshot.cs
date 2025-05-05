@@ -24,11 +24,11 @@ namespace backend.Migrations
 
             modelBuilder.Entity("backend.Model.ConversationModel", b =>
                 {
-                    b.Property<int>("ConversationId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ConversationId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("FirstUserId")
                         .HasColumnType("int");
@@ -36,23 +36,26 @@ namespace backend.Migrations
                     b.Property<int>("SecondUserId")
                         .HasColumnType("int");
 
-                    b.HasKey("ConversationId");
+                    b.HasKey("Id");
 
                     b.ToTable("Conversations");
                 });
 
             modelBuilder.Entity("backend.Model.MessageModel", b =>
                 {
-                    b.Property<int>("MessageId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MessageId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("ConversationId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ConversationModelId")
                         .HasColumnType("int");
 
                     b.Property<string>("SenderId")
@@ -61,22 +64,18 @@ namespace backend.Migrations
                     b.Property<DateTime>("Timestamp")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("MessageId");
+                    b.HasKey("Id");
 
-                    b.HasIndex("ConversationId");
+                    b.HasIndex("ConversationModelId");
 
                     b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("backend.Model.MessageModel", b =>
                 {
-                    b.HasOne("backend.Model.ConversationModel", "Conversation")
+                    b.HasOne("backend.Model.ConversationModel", null)
                         .WithMany("Messages")
-                        .HasForeignKey("ConversationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Conversation");
+                        .HasForeignKey("ConversationModelId");
                 });
 
             modelBuilder.Entity("backend.Model.ConversationModel", b =>

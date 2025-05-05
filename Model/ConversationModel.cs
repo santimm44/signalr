@@ -6,12 +6,11 @@ namespace backend.Model
     public class ConversationModel
     {
         public int Id { get; set; }
-        public int ConversationId { get; set; }
 
         public int FirstUserId { get; set; }
 
         public int SecondUserId { get; set; }
 
-        public virtual ICollection<MessageModel> Messages { get; set; }
+        public virtual ICollection<MessageModel>? Messages { get; set; }
     }
 }

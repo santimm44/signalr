@@ -47,12 +47,12 @@ namespace backend.service
         {
             ConversationModel findConversation = await GetOrCreateConversation(userId, secondUser);
             DateTime messageTimeStamp = stringToDateTime(timeStamp);
-            int theConversationId = findConversation.ConversationId;
+            int theConversationId = findConversation.Id;
 
             var messageToStore = new MessageModel
             {
                 Content = messageContent,
-                SenderId = userId,
+                SenderId = userId.ToString(),
                 Timestamp = messageTimeStamp,
                 ConversationId = theConversationId,
             };
@@ -64,6 +64,19 @@ namespace backend.service
 
         private DateTime stringToDateTime(string timeStamp)
         {
+            timeStamp = timeStamp.Replace(",", "");
+            timeStamp = Uri.UnescapeDataString(timeStamp);
+            /*  Notes:
+            The string that is given to DateTime.Parse was returning "5%2F5%2F2025 2:47:03 PM"
+            This cannot be converted to a datetime format
+            Method above is responsible for converting it to the following
+            "5/5/2025 2:47:03 PM"
+            Uri is a class in the System namespace.
+            It represents a Uniform Resource Identifier (URI) and contains various static methods and properties for URI handling.
+            (UnescapedDataString) This is a static method of the Uri class.
+            It converts percent-encoded characters (e.g., %2F, %20) back to their normal readable form (/, space, etc.).
+            This is necessary when you're receiving URL-encoded input, like from query strings or form data submitted over HTTP.
+            */
             return DateTime.Parse(timeStamp);
         }
     }

@@ -135,3 +135,4 @@
 /home/santiago/Documents/CodeStack/Playground/signalr-nextjs/backend/obj/Debug/net8.0/backend.pdb
 /home/santiago/Documents/CodeStack/Playground/signalr-nextjs/backend/obj/Debug/net8.0/backend.genruntimeconfig.cache
 /home/santiago/Documents/CodeStack/Playground/signalr-nextjs/backend/obj/Debug/net8.0/ref/backend.dll
+/home/santiago/Documents/CodeStack/Playground/signalr-nextjs/backend/obj/Debug/net8.0/backend.sourcelink.json
