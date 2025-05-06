@@ -1,6 +1,5 @@
 using backend.Context;
 using backend.Model;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
 namespace backend.service
@@ -22,7 +21,6 @@ namespace backend.service
                     (c.FirstUserId == firstUser && c.SecondUserId == secondUser)
                     || (c.FirstUserId == secondUser && c.SecondUserId == firstUser)
                 );
-
             if (conversation == null)
             {
                 conversation = new ConversationModel
@@ -78,6 +76,17 @@ namespace backend.service
             This is necessary when you're receiving URL-encoded input, like from query strings or form data submitted over HTTP.
             */
             return DateTime.Parse(timeStamp);
+        }
+
+        public async Task<List<MessageModel>> GetAllMessagesMethod(int firstUser, int secondUser)
+        {
+            ConversationModel findConversation = await GetOrCreateConversation(
+                firstUser,
+                secondUser
+            );
+            return await _context
+                .Messages.Where(m => m.ConversationId == findConversation.Id)
+                .ToListAsync();
         }
     }
 }

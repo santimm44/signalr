@@ -37,5 +37,12 @@ namespace backend.Controllers
             );
             return Ok(storedMessage);
         }
+
+        [HttpGet("GetAllMessages/{FirstUser}/{SecondUser}")]
+        public async Task<IActionResult> GetAllMessages(int FirstUser, int SecondUser)
+        {
+            var logs = await _chatService.GetAllMessagesMethod(FirstUser, SecondUser);
+            return Ok(logs);
+        }
     }
 }
