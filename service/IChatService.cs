@@ -1,5 +1,6 @@
 using backend.Context;
 using backend.Model;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.EntityFrameworkCore;
 
 namespace backend.service
@@ -15,14 +16,8 @@ namespace backend.service
 
         public async Task<ConversationModel> GetOrCreateConversation(int firstUser, int secondUser)
         {
-            var conversation =
-                //Add the next await into a helper
-                await _context
-                    .Conversations.Include(c => c.Messages)
-                    .FirstOrDefaultAsync(c =>
-                        (c.FirstUserId == firstUser && c.SecondUserId == secondUser)
-                        || (c.FirstUserId == secondUser && c.SecondUserId == firstUser)
-                    );
+            var conversation = await GetOrCreateConversationHelper(firstUser, secondUser);
+
             if (conversation == null)
             {
                 conversation = new ConversationModel
@@ -36,6 +31,20 @@ namespace backend.service
             }
 
             return conversation;
+        }
+
+        private async Task<ConversationModel> GetOrCreateConversationHelper(
+            int firstUser,
+            int secondUser
+        )
+        {
+            return await _context
+                .Conversations.Include(c => c.Messages)
+                .FirstOrDefaultAsync(c =>
+                    (c.FirstUserId == firstUser && c.SecondUserId == secondUser)
+                    || (c.FirstUserId == secondUser && c.SecondUserId == firstUser)
+                );
+            ;
         }
 
         public async Task<MessageModel> StoreMessage(
