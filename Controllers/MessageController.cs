@@ -42,7 +42,14 @@ namespace backend.Controllers
         public async Task<IActionResult> GetAllMessages(int FirstUser, int SecondUser)
         {
             var logs = await _chatService.GetAllMessagesMethod(FirstUser, SecondUser);
+            //if(logs == false) return BadRequest(new {Message = " Something wrong"});
             return Ok(logs);
+        }
+
+        [HttpGet("test")]
+        public string TestString()
+        {
+            return "test works";
         }
     }
 }

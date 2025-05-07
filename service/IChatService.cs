@@ -15,12 +15,14 @@ namespace backend.service
 
         public async Task<ConversationModel> GetOrCreateConversation(int firstUser, int secondUser)
         {
-            var conversation = await _context
-                .Conversations.Include(c => c.Messages)
-                .FirstOrDefaultAsync(c =>
-                    (c.FirstUserId == firstUser && c.SecondUserId == secondUser)
-                    || (c.FirstUserId == secondUser && c.SecondUserId == firstUser)
-                );
+            var conversation =
+                //Add the next await into a helper
+                await _context
+                    .Conversations.Include(c => c.Messages)
+                    .FirstOrDefaultAsync(c =>
+                        (c.FirstUserId == firstUser && c.SecondUserId == secondUser)
+                        || (c.FirstUserId == secondUser && c.SecondUserId == firstUser)
+                    );
             if (conversation == null)
             {
                 conversation = new ConversationModel
@@ -29,7 +31,7 @@ namespace backend.service
                     SecondUserId = secondUser,
                 };
 
-                _context.Conversations.Add(conversation);
+                await _context.Conversations.AddAsync(conversation);
                 await _context.SaveChangesAsync();
             }
 
@@ -84,9 +86,34 @@ namespace backend.service
                 firstUser,
                 secondUser
             );
+
+            bool DoesConversationExist = await GetAllMessagesHelper(firstUser, secondUser);
+
+            if (DoesConversationExist)
+            {
+                return null;
+            }
+
             return await _context
                 .Messages.Where(m => m.ConversationId == findConversation.Id)
                 .ToListAsync();
         }
+
+        private async Task<bool> GetAllMessagesHelper(int firstUser, int secondUser)
+        {
+            ConversationModel findConversation = await GetOrCreateConversation(
+                firstUser,
+                secondUser
+            );
+            //if statement
+            return false;
+        }
+        /*
+        Create helper function(s)
+        DoesConversationExist return Boolean
+        Inside GetAllMessagesMethod create an if statement based on the results of helper function
+            Do Logic to find where the error is at
+            New conversations or the existing conversations
+        */
     }
 }
