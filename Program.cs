@@ -19,7 +19,7 @@ builder.Services.AddCors(options =>
         policy =>
         {
             policy
-                .WithOrigins("https://new-front-end-xi.vercel.app/")
+                .WithOrigins("https://new-front-end-xi.vercel.app")
                 .AllowAnyHeader()
                 .AllowAnyMethod()
                 .AllowCredentials();

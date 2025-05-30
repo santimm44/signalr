@@ -4543,19 +4543,19 @@
     ]
   },
   "packageFolders": {
-    "/home/santiago/.nuget/packages/": {}
+    "C:\\Users\\brock\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/santiago/Documents/CodeStack/Playground/signalr-nextjs/backend/backend.csproj",
+      "projectUniqueName": "C:\\Users\\brock\\OneDrive\\Documents\\CodeStack\\Level 3\\signalrbackend\\signalr\\backend.csproj",
       "projectName": "backend",
-      "projectPath": "/home/santiago/Documents/CodeStack/Playground/signalr-nextjs/backend/backend.csproj",
-      "packagesPath": "/home/santiago/.nuget/packages/",
-      "outputPath": "/home/santiago/Documents/CodeStack/Playground/signalr-nextjs/backend/obj/",
+      "projectPath": "C:\\Users\\brock\\OneDrive\\Documents\\CodeStack\\Level 3\\signalrbackend\\signalr\\backend.csproj",
+      "packagesPath": "C:\\Users\\brock\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\brock\\OneDrive\\Documents\\CodeStack\\Level 3\\signalrbackend\\signalr\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/santiago/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\brock\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -4573,6 +4573,11 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -4615,12 +4620,6 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.AspNetCore.App.Ref",
-            "version": "[8.0.15, 8.0.15]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -4629,7 +4628,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/8.0.115/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
