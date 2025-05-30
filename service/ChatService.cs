@@ -1,15 +1,15 @@
 using backend.Context;
 using backend.Model;
-using Microsoft.AspNetCore.Http.HttpResults;
+// using backend.Model.DTOs;
 using Microsoft.EntityFrameworkCore;
 
 namespace backend.service
 {
-    public class IChatService
+    public class ChatService
     {
         private readonly DataContext _context;
 
-        public IChatService(DataContext context)
+        public ChatService(DataContext context)
         {
             _context = context;
         }
@@ -64,6 +64,7 @@ namespace backend.service
                 SenderId = userId.ToString(),
                 Timestamp = messageTimeStamp,
                 ConversationId = theConversationId,
+                ReceiverId = secondUser.ToString(),
             };
 
             _context.Messages.Add(messageToStore);
@@ -117,12 +118,5 @@ namespace backend.service
             //if statement
             return false;
         }
-        /*
-        Create helper function(s)
-        DoesConversationExist return Boolean
-        Inside GetAllMessagesMethod create an if statement based on the results of helper function
-            Do Logic to find where the error is at
-            New conversations or the existing conversations
-        */
     }
 }

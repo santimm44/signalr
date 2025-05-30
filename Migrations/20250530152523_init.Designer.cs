@@ -12,7 +12,7 @@ using backend.Context;
 namespace backend.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20250506231614_init")]
+    [Migration("20250530152523_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -58,6 +58,12 @@ namespace backend.Migrations
                     b.Property<int>("ConversationId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("ConversationModelId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ReceiverId")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("SenderId")
                         .HasColumnType("nvarchar(max)");
 
@@ -66,20 +72,16 @@ namespace backend.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ConversationId");
+                    b.HasIndex("ConversationModelId");
 
                     b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("backend.Model.MessageModel", b =>
                 {
-                    b.HasOne("backend.Model.ConversationModel", "Conversation")
+                    b.HasOne("backend.Model.ConversationModel", null)
                         .WithMany("Messages")
-                        .HasForeignKey("ConversationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Conversation");
+                        .HasForeignKey("ConversationModelId");
                 });
 
             modelBuilder.Entity("backend.Model.ConversationModel", b =>

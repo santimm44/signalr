@@ -8,7 +8,7 @@ namespace backend.Model
         public int ConversationId { get; set; }
         public string? SenderId { get; set; } // The user sending the message
         public string? Content { get; set; } // The content of the message
+        public string? ReceiverId { get; set; }
         public DateTime Timestamp { get; set; } = DateTime.UtcNow;
-        public virtual ConversationModel Conversation { get; set; } = null!;
     }
 }

@@ -7,9 +7,9 @@ namespace backend.Controllers
     [Route("[controller]")]
     public class MessageController : ControllerBase
     {
-        private readonly IChatService _chatService;
+        private readonly ChatService _chatService;
 
-        public MessageController(IChatService chatService)
+        public MessageController(ChatService chatService)
         {
             _chatService = chatService;
         }
